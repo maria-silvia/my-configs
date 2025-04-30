@@ -1,2 +1,2 @@
 # my-configs
-my configs
+just my configs
