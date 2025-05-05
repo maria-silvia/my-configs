@@ -7,11 +7,6 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
-(setq user-full-name "Maria Ruy"
-      user-mail-address "maria.ruy@nubank.com.br")
-
 (setq
        kdoom-big-font-increment 2
        confirm-kill-emacs nil
@@ -109,9 +104,6 @@ find indentation offset."
   :group 'copilot
   :type 'boolean)
 (setq copilot-indent-offset-warning-disable t)
-
-;; enable word wrapping
-(global-visual-line-mode 1)
 
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
