@@ -42,20 +42,21 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 (use-package! cider
   :after clojure-mode
   :config
   (setq cider-ns-refresh-show-log-buffer nil
-        cider-show-error-buffer 'only-in-repl
+        cider-special-mode-truncate-lines nil
+        ;; cider-show-error-buffer 'only-in-repl
         cider-auto-select-error-buffer nil
         cider-test-show-report-on-success t
         cider-auto-select-test-report-buffer nil
         cider-font-lock-dynamically nil ; use lsp semantic tokens
         cider-eldoc-display-for-symbol-at-point nil ; use lsp
         cider-prompt-for-symbol nil)
-  (set-popup-rule! "*cider-test-report*" :side 'right :width 0.3)
+  (set-popup-rule! "*cider-test-report*" :side 'right :width 0.4)
   (set-popup-rule! "^\\*cider-repl" :side 'right :width 0.3 :quit nil)
   (set-lookup-handlers! 'cider-mode nil) ; use lsp
   (add-hook 'cider-mode-hook (lambda () (remove-hook 'completion-at-point-functions #'cider-complete-at-point))) ; use lsp
@@ -81,29 +82,17 @@
 
 ;; Enabling auto save mode
 (setq auto-save-visited-mode t)
-(setq auto-save-visited-interval 0.5)
+;; (setq auto-save-visited-interval 0.5)
 (custom-set-variables
   '(auto-save-visited-mode t))
 
 (load! "+bindings")
 
-;; Github Copilot
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
-(defcustom copilot-indent-offset-warning-disable nil
-  "Disable indentation warnings.
+(setq global-visual-line-mode t)
 
-Warning occurs when the function `copilot--infer-indentation-offset' cannot
-find indentation offset."
-  :group 'copilot
-  :type 'boolean)
-(setq copilot-indent-offset-warning-disable t)
-
-(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+;recommended settings from playbook i don't know I need them
+;; (setq read-process-output-max (* 1024 1024)
+;;        projectile-project-search-path '("~/dev/nu")
+;;        projectile-enable-caching nil)
+;;
 
